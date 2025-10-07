@@ -1,6 +1,9 @@
 import React from "react";
 
 export default function Filters({
+    selectedLLM,
+    setSelectedLLM,
+    llms,
   occupations,
   ethnicities,
   selectedOccupation,
@@ -13,6 +16,19 @@ export default function Filters({
   return (
     <div style={{ width: "250px", marginRight: "2rem" }}>
       <h2>Filters</h2>
+      <div style={{ marginBottom: "1rem" }}>
+        <label>LLM:</label>
+        <select
+          value={selectedLLM}
+          onChange={(e) => setSelectedLLM(e.target.value)}
+        >
+          {llms.map((occ) => (
+            <option key={occ} value={occ}>
+              {occ}
+            </option>
+          ))}
+        </select>
+      </div>
 
       <div style={{ marginBottom: "1rem" }}>
         <label>Occupation:</label>

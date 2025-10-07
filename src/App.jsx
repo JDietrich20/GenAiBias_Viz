@@ -8,12 +8,23 @@ function App() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [selectedLLM, setSelectedLLM] = useState("openai");
   const [selectedOccupation, setSelectedOccupation] = useState("");
   const [selectedEthnicity, setSelectedEthnicity] = useState("");
   const [selectedBaseline, setSelectedBaseline] = useState("gender"); 
 
   useEffect(() => {
-    loadCSV(`${import.meta.env.BASE_URL}openai_converted.csv`).then((data) => {
+    setLoading(true); 
+  
+    loadCSV(`${import.meta.env.BASE_URL}${selectedLLM}_converted.csv`).then((data) => {
+      setData(data);
+      setLoading(false);
+      if (data.length > 0) setSelectedOccupation(data[0].career);
+    });
+  }, [selectedLLM]);
+
+  useEffect(() => {
+    loadCSV(`${import.meta.env.BASE_URL}${selectedLLM}_converted.csv`).then((data) => {
       setData(data);
       setLoading(false);
       if (data.length > 0) setSelectedOccupation(data[0].career);
@@ -29,12 +40,16 @@ function App() {
 
   const occupations = [...new Set(data.map((row) => row.career))];
   const ethnicities = [...new Set(data.map((row) => row.ethnicity))];
+  const llms = ["openai", "deepseek", "gemini", "mistral"];
 
   return (
     <div style={{ display: "flex", padding: "2rem" }}>
       <Filters
         occupations={occupations}
         ethnicities={ethnicities}
+        llms = {llms}
+        selectedLLM={selectedLLM}
+        setSelectedLLM={setSelectedLLM}
         selectedOccupation={selectedOccupation}
         setSelectedOccupation={setSelectedOccupation}
         selectedEthnicity={selectedEthnicity}
@@ -44,8 +59,12 @@ function App() {
       />
       <div style={{ flexGrow: 1 }}>
         <h1>
-          Chart for {selectedOccupation} (Baseline: {selectedBaseline})
+          {selectedLLM} vs. BLS Baselines
         </h1>
+        <h2>
+         Career Term: {selectedOccupation} 
+        </h2>
+        <h3>(Baseline: {selectedBaseline})</h3>
         <Chart filteredData={filteredData} baselineField={selectedBaseline} />
       </div>
     </div>
