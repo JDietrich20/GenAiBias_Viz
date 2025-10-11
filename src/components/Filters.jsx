@@ -15,9 +15,9 @@ export default function Filters({
 }) {
   return (
     <div style={{ width: "250px", marginRight: "2rem" }}>
-      <h2>Filters</h2>
+      <h2><b>Filters</b></h2>
       <div style={{ marginBottom: "1rem" }}>
-        <label>LLM:</label>
+        <label><b>LLM:</b></label>
         <select
           value={selectedLLM}
           onChange={(e) => setSelectedLLM(e.target.value)}
@@ -31,7 +31,7 @@ export default function Filters({
       </div>
 
       <div style={{ marginBottom: "1rem" }}>
-        <label>Occupation:</label>
+        <label><b>Occupation:</b></label>
         <select
           value={selectedOccupation}
           onChange={(e) => setSelectedOccupation(e.target.value)}
@@ -45,7 +45,7 @@ export default function Filters({
       </div>
 
       <div style={{ marginBottom: "1rem" }}>
-        <label>Baseline:</label>
+        <label><b>Baseline:</b></label>
         <select
           value={selectedBaseline}
           onChange={(e) => setSelectedBaseline(e.target.value)}

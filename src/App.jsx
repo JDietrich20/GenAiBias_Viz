@@ -19,17 +19,15 @@ function App() {
     loadCSV(`${import.meta.env.BASE_URL}${selectedLLM}_converted.csv`).then((data) => {
       setData(data);
       setLoading(false);
-      if (data.length > 0) setSelectedOccupation(data[0].career);
+      if (data.length > 0) {
+        const availableOccupations = data.map((row) => row.career);
+        if (!availableOccupations.includes(selectedOccupation)) {
+          setSelectedOccupation(data[0].career);
+        }
+      }
     });
   }, [selectedLLM]);
 
-  useEffect(() => {
-    loadCSV(`${import.meta.env.BASE_URL}${selectedLLM}_converted.csv`).then((data) => {
-      setData(data);
-      setLoading(false);
-      if (data.length > 0) setSelectedOccupation(data[0].career);
-    });
-  }, []);
 
   if (loading) return <Loader />;
 
@@ -38,9 +36,17 @@ function App() {
   );
   
 
-  const occupations = [...new Set(data.map((row) => row.career))];
+  const occupations = [
+    ...new Set(
+      data
+        .map((row) => row.career)
+        .filter((career) => career && career.trim() !== "") 
+    )
+  ].sort();
+  
+
   const ethnicities = [...new Set(data.map((row) => row.ethnicity))];
-  const llms = ["openai", "deepseek", "gemini", "mistral"];
+  const llms = ["openai", "deepseek", "gemini", "mistral", "average"];
 
   return (
     <div style={{ display: "flex", padding: "2rem" }}>
@@ -62,10 +68,10 @@ function App() {
           {selectedLLM} vs. BLS Baselines
         </h1>
         <h2>
-         Career Term: {selectedOccupation} 
+         <b>Career Term: </b>{selectedOccupation} 
         </h2>
-        <h3>(Baseline: {selectedBaseline})</h3>
-        <Chart filteredData={filteredData} baselineField={selectedBaseline} />
+        <h3>(<b>Baseline: </b>{selectedBaseline})</h3>
+        <Chart filteredData={filteredData} baselineField={selectedBaseline} llm = {selectedLLM} />
       </div>
     </div>
   );

@@ -1,7 +1,9 @@
 import React from "react";
 import Plot from "react-plotly.js";
+import { useEffect, useRef } from 'react';
 
-export default function Chart({ filteredData, baselineField }) {
+export default function Chart({ filteredData, baselineField, llm }) {
+  const plotRef = useRef();
   if (!filteredData || filteredData.length === 0)
     return <p>No data found for selected filters.</p>;
 
@@ -22,7 +24,7 @@ export default function Chart({ filteredData, baselineField }) {
         y: yValues,
         name: metric,
         type: "bar",
-        text: yValues.map((v) => Math.round(v * 100) + "%"),
+        text: yValues.map((v) => (v * 100).toFixed(1) + "%"),
         marker: { color: metric === "bls" ? "rgb(99,110,250)" : "rgb(240,84,59)" },
       });
     });
@@ -35,11 +37,12 @@ export default function Chart({ filteredData, baselineField }) {
         y: yValues,
         name: metric,
         type: "bar",
-        text: yValues.map((v) => Math.round(v * 100) + "%"),
+        text: yValues.map((v) => (v * 100).toFixed(1) + "%"),
         marker: { color: metric === "bls" ? "rgb(99,110,250)" : "rgb(240,84,59)" },
       });
     });
   }
+
 
   return (
     <Plot
