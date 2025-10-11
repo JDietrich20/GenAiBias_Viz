@@ -29,7 +29,7 @@ function App() {
   }, [selectedLLM]);
 
 
-  if (loading) return <Loader />;
+  //if (loading) return <Loader />;
 
   const filteredData = data.filter(
     (row) => row.career === selectedOccupation

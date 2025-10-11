@@ -1,5 +1,6 @@
 import React from "react";
 
+
 export default function Filters({
     selectedLLM,
     setSelectedLLM,
@@ -15,7 +16,7 @@ export default function Filters({
 }) {
   return (
     <div style={{ width: "250px", marginRight: "2rem" }}>
-      <h2><b>Filters</b></h2>
+      <h2><b><u>Filters</u></b></h2>
       <div style={{ marginBottom: "1rem" }}>
         <label><b>LLM:</b></label>
         <select
@@ -44,18 +45,28 @@ export default function Filters({
         </select>
       </div>
 
-      <div style={{ marginBottom: "1rem" }}>
-        <label><b>Baseline:</b></label>
-        <select
-          value={selectedBaseline}
-          onChange={(e) => setSelectedBaseline(e.target.value)}
-        >
-          <option value="gender">Gender</option>
-          <option value="ethnicity">Ethnicity</option>
-        </select>
+      <label><b>Baseline:</b></label>
+      <div onChange={(e) => setSelectedBaseline(e.target.value)}>
+        <label style={{ marginRight: "1rem" }}>
+          <input
+            type="radio"
+            value="gender"
+            checked={selectedBaseline === "gender"}
+            onChange={(e) => setSelectedBaseline(e.target.value)}
+          />
+          Gender
+        </label>
+        <label>
+          <input
+            type="radio"
+            value="ethnicity"
+            checked={selectedBaseline === "ethnicity"}
+            onChange={(e) => setSelectedBaseline(e.target.value)}
+          />
+          Ethnicity
+        </label>
       </div>
-
-      
     </div>
+
   );
 }

@@ -44,18 +44,36 @@ export default function Chart({ filteredData, baselineField, llm }) {
   }
 
 
+
   return (
     <Plot
       data={chartData}
       layout={{
         barmode: "group",
-        yaxis: { title: "% of Sample", tickformat: ".0%", range: [0, 1] },
-        margin: { t: 40, l: 60, r: 20, b: 40 },
+        yaxis: {
+          title: { 
+            text: "% of Sample", 
+            standoff: 20, 
+          },
+          tickformat: ".0%",
+          range: [0, 1],
+          tickfont: { size: 14 },
+          titlefont: { size: 16 },
+        },
+        xaxis: {
+          title: { text: baselineField === "gender" ? "Gender" : "Ethnicity" },
+          tickfont: { size: 14 },
+          titlefont: { size: 16 },
+        },
+        
+        margin: { t: 60, l: 100, r: 60, b: 80 },
         transition: { duration: 800, easing: "cubic-in-out" },
       }}
       config={{ responsive: true }}
       style={{ width: "100%", height: "500px" }}
     />
   );
+  
+  
 }
 
