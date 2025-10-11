@@ -10,6 +10,15 @@ export default function Chart({ filteredData, baselineField, llm }) {
   const row = filteredData[0];
   const metrics = ["bls", "genai"];
   const chartData = [];
+  const llmNames = {
+    openai: "ChatGPT 4.0",
+    deepseek: "Deepseek",
+    gemini: "Gemini",
+    mistral: "Mistral",
+    average: "Average",
+  };
+
+  const selectedLLMName = llmNames[llm];
 
   if (baselineField === "gender") {
     const genderGroups = ["women", "men"]; 
@@ -22,7 +31,7 @@ export default function Chart({ filteredData, baselineField, llm }) {
       chartData.push({
         x: genderGroups.map((g) => g.charAt(0).toUpperCase() + g.slice(1)),
         y: yValues,
-        name: metric,
+        name: metric === "bls" ? "BLS" : selectedLLMName ,
         type: "bar",
         text: yValues.map((v) => (v * 100).toFixed(1) + "%"),
         marker: { color: metric === "bls" ? "rgb(99,110,250)" : "rgb(240,84,59)" },
@@ -35,15 +44,13 @@ export default function Chart({ filteredData, baselineField, llm }) {
       chartData.push({
         x: ethnicityGroups.map((g) => g.charAt(0).toUpperCase() + g.slice(1)),
         y: yValues,
-        name: metric,
+        name: metric === "bls" ? "baseline_percent" : selectedLLMName ,
         type: "bar",
         text: yValues.map((v) => (v * 100).toFixed(1) + "%"),
         marker: { color: metric === "bls" ? "rgb(99,110,250)" : "rgb(240,84,59)" },
       });
     });
   }
-
-
 
   return (
     <Plot
@@ -52,7 +59,7 @@ export default function Chart({ filteredData, baselineField, llm }) {
         barmode: "group",
         yaxis: {
           title: { 
-            text: "% of Sample", 
+            text: "<b>% of Sample</b>", 
             standoff: 20, 
           },
           tickformat: ".0%",
@@ -61,7 +68,7 @@ export default function Chart({ filteredData, baselineField, llm }) {
           titlefont: { size: 16 },
         },
         xaxis: {
-          title: { text: baselineField === "gender" ? "Gender" : "Ethnicity" },
+          title: { text: baselineField === "gender" ? "<b>Gender<b>" : "Ethnicity" },
           tickfont: { size: 14 },
           titlefont: { size: 16 },
         },

@@ -1,18 +1,28 @@
 import React from "react";
 
+const formatOccupation = (occ) => {
+  return occ
+    .replace(/([a-z])([A-Z])/g, "$1 $2") // For camelCase (if any)
+    .replace(/([a-z])([a-z]+)/g, (_, first, rest) => first.toUpperCase() + rest); // Capitalize first letter
+};
+
+const llmNames = {
+  openai: "ChatGPT 4.0",
+  deepseek: "Deepseek",
+  gemini: "Gemini",
+  mistral: "Mistral",
+  average: "Average",
+};
 
 export default function Filters({
+
     selectedLLM,
     setSelectedLLM,
-    llms,
-  occupations,
-  ethnicities,
-  selectedOccupation,
-  setSelectedOccupation,
-  selectedEthnicity,
-  setSelectedEthnicity,
-  selectedBaseline,
-  setSelectedBaseline,
+    occupations,
+    selectedOccupation,
+    setSelectedOccupation,
+    selectedBaseline,
+    setSelectedBaseline,
 }) {
   return (
     <div style={{ width: "250px", marginRight: "2rem" }}>
@@ -23,13 +33,15 @@ export default function Filters({
           value={selectedLLM}
           onChange={(e) => setSelectedLLM(e.target.value)}
         >
-          {llms.map((occ) => (
-            <option key={occ} value={occ}>
-              {occ}
-            </option>
-          ))}
-        </select>
+        {Object.entries(llmNames).map(([key, name]) => (
+          <option key={key} value={key}>
+            {name}
+          </option>
+        ))}
+      </select>
       </div>
+
+      
 
       <div style={{ marginBottom: "1rem" }}>
         <label><b>Occupation:</b></label>

@@ -48,12 +48,31 @@ function App() {
   const ethnicities = [...new Set(data.map((row) => row.ethnicity))];
   const llms = ["openai", "deepseek", "gemini", "mistral", "average"];
 
+  const llmNames = {
+  openai: "ChatGPT 4.0",
+  deepseek: "Deepseek",
+  gemini: "Gemini",
+  mistral: "Mistral",
+  average: "Average",
+  };
+
+  const llmsN = [ "ChatGPT 4.0", "Deepseek", "Gemini", "Mistral", "Average",]
+
+  const selectedLLM_name = llmNames[selectedLLM] || "Error";
+
+  const formatOccupation = (occ) => {
+    return occ
+      .replace(/([a-z])([A-Z])/g, "$1 $2") // For camelCase (if any)
+      .replace(/([a-z])([a-z]+)/g, (_, first, rest) => first.toUpperCase() + rest); // Capitalize first letter
+  };
+
   return (
     <div style={{ display: "flex", padding: "2rem" }}>
       <Filters
         occupations={occupations}
         ethnicities={ethnicities}
         llms = {llms}
+        llmsN={llmsN}
         selectedLLM={selectedLLM}
         setSelectedLLM={setSelectedLLM}
         selectedOccupation={selectedOccupation}
@@ -65,10 +84,10 @@ function App() {
       />
       <div style={{ flexGrow: 1 }}>
         <h1>
-          {selectedLLM} vs. BLS Baselines
+          {selectedLLM_name} vs. BLS Baselines
         </h1>
         <h2>
-         <b>Career Term: </b>{selectedOccupation} 
+         <b>Career Term: </b>{formatOccupation(selectedOccupation)} 
         </h2>
         <h3>(<b>Baseline: </b>{selectedBaseline})</h3>
         <Chart filteredData={filteredData} baselineField={selectedBaseline} llm = {selectedLLM} />
