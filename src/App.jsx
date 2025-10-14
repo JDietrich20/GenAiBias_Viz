@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { loadCSV } from "./utils/csvLoader";
 import Filters from "./components/Filters";
 import Chart from "./components/Chart";
-import Loader from "./components/Loader";
 
 function App() {
   const [data, setData] = useState([]);
@@ -60,14 +59,14 @@ function App() {
 
   const selectedLLM_name = llmNames[selectedLLM] || "Error";
 
-  const formatOccupation = (occ) => {
+  const format = (occ) => {
     return occ
       .replace(/([a-z])([A-Z])/g, "$1 $2") // For camelCase (if any)
       .replace(/([a-z])([a-z]+)/g, (_, first, rest) => first.toUpperCase() + rest); // Capitalize first letter
   };
 
   return (
-    <div style={{ display: "flex", padding: "2rem" }}>
+    <div style={{ display: "flex", padding: "1rem" }}>
       <Filters
         occupations={occupations}
         ethnicities={ethnicities}
@@ -87,9 +86,9 @@ function App() {
           {selectedLLM_name} vs. BLS Baselines
         </h1>
         <h2>
-         <b>Career Term: </b>{formatOccupation(selectedOccupation)} 
+         <b>Career Term:   </b><u>{format(selectedOccupation)} </u>
         </h2>
-        <h3>(<b>Baseline: </b>{selectedBaseline})</h3>
+        <h3>(<b>Baseline:   </b><u>{format(selectedBaseline)}</u>)</h3>
         <Chart filteredData={filteredData} baselineField={selectedBaseline} llm = {selectedLLM} />
       </div>
     </div>

@@ -1,6 +1,6 @@
 import React from "react";
 
-const formatOccupation = (occ) => {
+const format= (occ) => {
   return occ
     .replace(/([a-z])([A-Z])/g, "$1 $2") // For camelCase (if any)
     .replace(/([a-z])([a-z]+)/g, (_, first, rest) => first.toUpperCase() + rest); // Capitalize first letter
@@ -28,7 +28,7 @@ export default function Filters({
     <div style={{ width: "250px", marginRight: "2rem" }}>
       <h2><b><u>Filters</u></b></h2>
       <div style={{ marginBottom: "1rem" }}>
-        <label><b>LLM:</b></label>
+        <label><b>LLM:   </b></label>
         <select
           value={selectedLLM}
           onChange={(e) => setSelectedLLM(e.target.value)}
@@ -44,20 +44,20 @@ export default function Filters({
       
 
       <div style={{ marginBottom: "1rem" }}>
-        <label><b>Occupation:</b></label>
+        <label><b>Occupation:   </b></label>
         <select
           value={selectedOccupation}
           onChange={(e) => setSelectedOccupation(e.target.value)}
         >
           {occupations.map((occ) => (
-            <option key={occ} value={occ}>
-              {occ}
+            <option key={occ} value={occ}> 
+              {format(occ)}
             </option>
           ))}
         </select>
       </div>
 
-      <label><b>Baseline:</b></label>
+      <label><b>Baseline:   </b></label>
       <div onChange={(e) => setSelectedBaseline(e.target.value)}>
         <label style={{ marginRight: "1rem" }}>
           <input
