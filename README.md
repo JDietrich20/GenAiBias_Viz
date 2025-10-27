@@ -1,12 +1,32 @@
-# React + Vite
+# GenAiBias Visualization Dashboard  
+*An interactive visualization of Generative AI Bias for the HCI Lab at Santa Clara University*  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## What is this and Why?  
+This project provides an interactive, web-based visualization for the results in the following paper: ———————————. It was developed for the GenAI Bias team at the HCI Lab at Santa Clara University and showcased during BayLearn 2025 as a live demonstration/interactive display.  
+The tool enables viewers to explore how different large language models (LLMs) perform across occupational/ethnic/gender baselines, helping to surface disparities and support discussions around fairness and accountability.  
 
-Currently, two official plugins are available:
+## Tech Stack 
+Framework: React with Vite
+Languages: HTML, JavaScript, JSX, and CSS
+Visualization Library: Plotly.js
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Project Structure  
+```
+├── public/
+│   └── … (static assets, CSV files)  
+├── src/
+│   ├── components/
+│   │   ├── Filters.jsx        – UI controls for LLM-selection, occupation, ethnicity, baseline  
+│   │   ├── Chart.jsx          – Visualization component  
+│   │   └── …  
+│   ├── utils/
+│   │   ├── csvLoader.js       – CSV loading helper  
+│   │   ├── constants.js       – Static definitions (LLM names, etc.)  
+│   │   └── formatters.js      – String formatting utilities  
+│   ├── App.jsx               – Main component tying everything together  
+│   └── …  
+├── package.json  
+├── vite.config.js  
+└── README.md
+```
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
