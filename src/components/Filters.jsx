@@ -1,18 +1,6 @@
 import React from "react";
-
-const format= (occ) => {
-  return occ
-    .replace(/([a-z])([A-Z])/g, "$1 $2") // For camelCase (if any)
-    .replace(/([a-z])([a-z]+)/g, (_, first, rest) => first.toUpperCase() + rest); // Capitalize first letter
-};
-
-const llmNames = {
-  openai: "ChatGPT 4.0",
-  deepseek: "Deepseek",
-  gemini: "Gemini",
-  mistral: "Mistral",
-  average: "Average",
-};
+import { format } from "../utils/formatters";
+import { llmNames } from "../utils/constants";
 
 export default function Filters({
 

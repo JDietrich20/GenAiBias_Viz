@@ -1,6 +1,8 @@
 import React from "react";
 import Plot from "react-plotly.js";
-import { useEffect, useRef } from 'react';
+
+import {useRef } from 'react';
+import { llmNames } from "../utils/constants";
 
 export default function Chart({ filteredData, baselineField, llm }) {
   const plotRef = useRef();
@@ -10,13 +12,7 @@ export default function Chart({ filteredData, baselineField, llm }) {
   const row = filteredData[0];
   const metrics = ["bls", "genai"];
   const chartData = [];
-  const llmNames = {
-    openai: "ChatGPT 4.0",
-    deepseek: "Deepseek",
-    gemini: "Gemini",
-    mistral: "Mistral",
-    average: "Average",
-  };
+
 
   const selectedLLMName = llmNames[llm];
 

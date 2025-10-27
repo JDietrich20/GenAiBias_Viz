@@ -3,9 +3,12 @@ import { loadCSV } from "./utils/csvLoader";
 import Filters from "./components/Filters";
 import Chart from "./components/Chart";
 
+import { llms, llmNames, llmsN } from "./utils/constants";
+import { format } from "./utils/formatters";
+
 function App() {
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
 
   const [selectedLLM, setSelectedLLM] = useState("openai");
   const [selectedOccupation, setSelectedOccupation] = useState("");
@@ -28,12 +31,9 @@ function App() {
   }, [selectedLLM]);
 
 
-  //if (loading) return <Loader />;
-
   const filteredData = data.filter(
     (row) => row.career === selectedOccupation
   );
-  
 
   const occupations = [
     ...new Set(
@@ -42,28 +42,9 @@ function App() {
         .filter((career) => career && career.trim() !== "") 
     )
   ].sort();
-  
 
   const ethnicities = [...new Set(data.map((row) => row.ethnicity))];
-  const llms = ["openai", "deepseek", "gemini", "mistral", "average"];
-
-  const llmNames = {
-  openai: "ChatGPT 4.0",
-  deepseek: "Deepseek",
-  gemini: "Gemini",
-  mistral: "Mistral",
-  average: "Average",
-  };
-
-  const llmsN = [ "ChatGPT 4.0", "Deepseek", "Gemini", "Mistral", "Average",]
-
   const selectedLLM_name = llmNames[selectedLLM] || "Error";
-
-  const format = (occ) => {
-    return occ
-      .replace(/([a-z])([A-Z])/g, "$1 $2") // For camelCase (if any)
-      .replace(/([a-z])([a-z]+)/g, (_, first, rest) => first.toUpperCase() + rest); // Capitalize first letter
-  };
 
   return (
     <div style={{ display: "flex", padding: "1rem" }}>
