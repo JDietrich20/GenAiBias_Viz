@@ -7,7 +7,9 @@ The tool enables viewers to explore how different large language models (LLMs) p
 
 ## Tech Stack 
 Framework: React with Vite
+
 Languages: HTML, JavaScript, JSX, and CSS
+
 Visualization Library: Plotly.js
 
 ## Project Structure  
