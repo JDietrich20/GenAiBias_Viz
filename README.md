@@ -2,7 +2,7 @@
 *An interactive visualization of Generative AI Bias for the HCI Lab at Santa Clara University*  
 
 ## What is this and Why?  
-This project provides an interactive, web-based visualization for the results in the following paper: ———————————. It was developed for the GenAI Bias team at the HCI Lab at Santa Clara University and showcased during BayLearn 2025 as a live demonstration/interactive display.  
+This project provides an interactive, web-based visualization for the results in the following paper: https://arxiv.org/abs/2510.21011 . It was developed for the GenAI Bias team at the HCI Lab at Santa Clara University and showcased during BayLearn 2025 as a live demonstration/interactive display.  
 The tool enables viewers to explore how different large language models (LLMs) perform across occupational/ethnic/gender baselines, helping to surface disparities and support discussions around fairness and accountability.  
 
 ## Tech Stack 
